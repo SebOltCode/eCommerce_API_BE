@@ -6,6 +6,8 @@ const User = sequelize.define('User', {
 
     id: {
         type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
         allowNull: false,
 
     },
@@ -26,6 +28,9 @@ const User = sequelize.define('User', {
 
     }
 });
+
+User.hasMany(Order, { foreignKey: 'userId' });
+
 
 User.sync();
 
