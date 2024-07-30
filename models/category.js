@@ -1,22 +1,17 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../db/index.js';
 
-
 const Category = sequelize.define('Category', {
-
     id: {
         type: DataTypes.INTEGER,
-        allowNull: false,
-
+        allowNull: false
     },
-
     name: {
         type: DataTypes.STRING,
-        allowNull: false,
-    },
+        allowNull: false
+    }
+})
 
-});
-
-User.sync();
+Category.sync();
 
 export default Category;
