@@ -1,11 +1,15 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../db/index.js';
+import Product from './product.js';
+import User from './user.js';
 
 
 const Order = sequelize.define('Order', {
 
     id: {
         type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
         allowNull: false,
 
     },
@@ -13,12 +17,13 @@ const Order = sequelize.define('Order', {
     userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        references: {
+            model: User,
+            key: 'id'
+        }
     },
 
-    // // products: { products: Array of objects containing productId (Integer) and quantity (Integer)
-    //     type: DataTypes.STRING,
-    //     allowNull: false,
-    // },
+ 
 
     total: {
         type: DataTypes.FLOAT,
@@ -27,6 +32,12 @@ const Order = sequelize.define('Order', {
     }
 });
 
-User.sync();
+// Beziehung eine Order gehört zu einem User
+Order.belongsTo(User, { foreignKey: 'userId' });
+
+// Beziehung eine Order hat viele Produkte
+Order.belongsToMany(Product, { through: 'OrderProduct', foreignKey: 'orderId', otherKey: 'productId' });
+
+Order.sync();
 
 export default Order;
