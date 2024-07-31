@@ -4,10 +4,6 @@ import { returnErrorWithMessage } from '../middleware/returnErrorWithMessage.js'
 export const createUser = async (req, res) => {
     try {
         const { name, email, password } = req.body;
-        if (!name || !email || !password) {
-            return returnErrorWithMessage(res, 400, 'Name, email, and password are required');
-        }
-
         const newUser = await User.create({ name, email, password });
         res.status(201).json(newUser);
     } catch (error) {
