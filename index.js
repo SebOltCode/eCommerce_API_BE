@@ -7,6 +7,8 @@ import orderRoutes from './router/order.js';
 import productRoutes from './router/product.js';
 import categoryRoutes from './router/category.js';
 
+import { createValidator } from 'express-joi-validation';
+import { userSchema } from './validation.js';
 
 
 const { Client } = pg;
@@ -19,9 +21,8 @@ app.use(express.json());
 app.use('/categories', categoryRoutes);
 app.use('/orders', orderRoutes);
 app.use('/products', productRoutes);
-app.use('/users', userRoutes);
+app.use('/users', validator.body(userSchema), userRoutes);
 
 app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-  });
-  
+  console.log(`Server is running on port ${port}`);
+});
