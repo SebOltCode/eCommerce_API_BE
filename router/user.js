@@ -3,14 +3,15 @@ import {
     createUser,
     deleteUser,
     getUserById,
-    getUser,
+    getUsers,
     updateUser,
-} from './controllers/User.js';
+
+} from '../controllers/User.js';
 
 
 const userRoutes = express.Router();
 
-userRoutes.get('/', getUser);
+userRoutes.get('/', getUsers);
 userRoutes.post('/', createUser);
 userRoutes.get('/:id', getUserById);
 userRoutes.put('/:id', updateUser);
