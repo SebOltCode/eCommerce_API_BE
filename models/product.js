@@ -1,6 +1,6 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../db/index.js';
-import Category from './category.js';
+import Category from '../category.js';
 import Order from './order.js';
 
 // Synchronisiere alle Modelle mit der Datenbank
