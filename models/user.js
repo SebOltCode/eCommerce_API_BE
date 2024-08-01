@@ -1,5 +1,6 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../db/index.js';
+import Order from './Order.js';
 
 
 const User = sequelize.define('User', {
@@ -31,7 +32,9 @@ const User = sequelize.define('User', {
 
 User.hasMany(Order, { foreignKey: 'userId' });
 
+// User.hasMany(Order, { foreignKey: 'userId' });
 
-User.sync();
+
+// User.sync();
 
 export default User;
