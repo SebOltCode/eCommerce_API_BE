@@ -10,11 +10,12 @@ import categoryRoutes from './router/category.js';
 import { createValidator } from 'express-joi-validation';
 import { userSchema } from './middleware/validation.js';
 
-
 const { Client } = pg;
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+const validator = createValidator(); // Hier wird der Validator erstellt
 
 app.use(express.json());
 
