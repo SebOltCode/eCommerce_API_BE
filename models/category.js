@@ -1,6 +1,6 @@
+// models/category.js
 import { DataTypes } from 'sequelize';
 import sequelize from '../db/index.js';
-import Product from './product.js';
 
 const Category = sequelize.define('Category', {
     id: {
@@ -9,14 +9,10 @@ const Category = sequelize.define('Category', {
         autoIncrement: true,
         allowNull: false,
     },
-  
     name: {
         type: DataTypes.STRING,
         allowNull: false
     }
-})
-
-Category.belongsToMany(Product, { through: 'ProductCategory', foreignKey: 'categoryId', otherKey: 'productId' });
-await Category.sync();
+});
 
 export default Category;
