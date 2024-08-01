@@ -1,7 +1,7 @@
 import Order from '../models/order.js';
 
 // Getting all orders
-export const getorders = async (req, res) => {
+export const getOrder = async (req, res) => {
   try {
     const orders = await order.findAll();
     res.json(orders);
@@ -11,7 +11,7 @@ export const getorders = async (req, res) => {
 };
 
 // Creating a new order
-export const createorder = async (req, res) => {
+export const createOrder = async (req, res) => {
   try {
     const {
       body: { name },
@@ -25,7 +25,7 @@ export const createorder = async (req, res) => {
 };
 
 // Get order by id
-export const getorderById = async (req, res) => {
+export const getOrderById = async (req, res) => {
   try {
     const {
       params: { id },
@@ -39,7 +39,7 @@ export const getorderById = async (req, res) => {
 };
 
 // Update order by id
-export const updateorder = async (req, res) => {
+export const updateOrder = async (req, res) => {
   try {
     const {
       body: { firstName, lastName, email },
@@ -57,7 +57,7 @@ export const updateorder = async (req, res) => {
 };
 
 //Delete order by id
-export const deleteorder = async (req, res) => {
+export const deleteOrder = async (req, res) => {
   try {
     const {
       params: { id },
