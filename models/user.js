@@ -32,9 +32,9 @@ const User = sequelize.define('User', {
 
 User.hasMany(Order, { foreignKey: 'userId' });
 
-// User.hasMany(Order, { foreignKey: 'userId' });
+User.hasMany(Order, { foreignKey: 'userId' });
 
 
-// User.sync();
+User.sync();
 
 export default User;
