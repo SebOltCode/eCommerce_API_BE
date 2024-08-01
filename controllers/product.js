@@ -1,9 +1,13 @@
 import Product from '../models/Product.js';
 import { returnErrorWithMessage } from '../middleware/returnErrorWithMessage.js';
 
+// Creating a new product
 export const createProduct = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, description, price } = req.body; // Vergewissere dich, dass alle benötigten Felder vorhanden sind
+    if (!name || !description || !price) {
+      return returnErrorWithMessage(res, 400, 'Name, description, and price are required');
+    }
     const newProduct = await Product.create({ name, description, price });
     res.status(201).json(newProduct);
   } catch (error) {
@@ -12,6 +16,7 @@ export const createProduct = async (req, res) => {
   }
 };
 
+// Getting all products
 export const getProduct = async (req, res) => {
   try {
     const products = await Product.findAll();
@@ -22,6 +27,7 @@ export const getProduct = async (req, res) => {
   }
 };
 
+// Get product by id
 export const getProductById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -37,10 +43,11 @@ export const getProductById = async (req, res) => {
   }
 };
 
+// Update product by id
 export const updateProduct = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, email, password } = req.body;
+    const { name, description, price } = req.body; // Sicherstellen, dass diese Felder definiert sind
 
     const [updated] = await Product.update(
       { name, description, price },
@@ -61,6 +68,7 @@ export const updateProduct = async (req, res) => {
   }
 };
 
+// Delete product by id
 export const deleteProduct = async (req, res) => {
   try {
     const { id } = req.params;

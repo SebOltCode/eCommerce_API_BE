@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../db/index.js';
-import Product from './product.js';
 import User from './user.js';
+import Product from './product.js';
 
 const Order = sequelize.define('Order', {
   id: {
@@ -10,41 +10,37 @@ const Order = sequelize.define('Order', {
     autoIncrement: true,
     allowNull: false,
   },
-
   userId: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: 'User',
+      model: 'Users', // Stellen Sie sicher, dass dies der Name der Tabelle ist
       key: 'id',
     },
   },
-
   total: {
     type: DataTypes.FLOAT,
     allowNull: true,
   },
 });
 
-(async () => {
-  await import('./user.js');
-  // Beziehung eine Order gehört zu einem User
-  Order.belongsTo(User, { foreignKey: 'userId' });
-  await Order.sync();
-})();
+// Definiere Beziehungen
+Order.belongsTo(User, { foreignKey: 'userId' });
+Order.belongsToMany(Product, {
+  through: 'OrderProduct',
+  foreignKey: 'orderId',
+  otherKey: 'productId',
+});
 
+// Synchronisiere die Order-Tabelle
 (async () => {
-  await import('./product.js');
-  // Beziehung eine Order hat viele Produkte
-  Order.belongsToMany(Product, {
-    through: 'OrderProduct',
-    foreignKey: 'orderId',
-    otherKey: 'productId',
-  });
-  await Order.sync();
+  try {
+    // Synchronisiere nur die Order-Tabelle. `sequelize.sync()` wird normalerweise global verwendet.
+    await Order.sync(); 
+    console.log('Order table synchronized');
+  } catch (error) {
+    console.error('Error synchronizing the Order table:', error);
+  }
 })();
-
-// Synchronisiere alle Modelle mit der Datenbank
-//sequelize.sync();
 
 export default Order;

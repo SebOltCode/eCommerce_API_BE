@@ -40,37 +40,33 @@ export const getCategoryById = async (req, res) => {
 
 // Update category by id
 export const updateCategory = async (req, res) => {
+  try {
+    const { name } = req.body;
+    const { id } = req.params;
 
-    try {
-        const {
-            body: { firstName, lastName, email },
-            params: { id }
-        } = req;
-        if (!firstName || !lastName || !email)
-            return res.status(400).json({ error: 'Name is required' });
-        const category = await Category.findByPk(id);
-        if (!category) return res.status(404).json({ error: 'Category not found' });
-        await category.update(req.body);
-        res.json(category);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
+    if (!name) return res.status(400).json({ error: 'Name is required' });
 
+    const category = await Category.findByPk(id);
+    if (!category) return res.status(404).json({ error: 'Category not found' });
+
+    await category.update({ name });
+    res.json(category);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
 
-//Delete category by id
+
+// Delete category by id
 export const deleteCategory = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const category = await Category.findByPk(id);
+    if (!category) return res.status(404).json({ error: 'Category not found' });
 
-    try {
-        const {
-            params: { id }
-        } = req;
-        const category = await Category.findByPl(id);
-        if (!category) return res.status(404).json({ error: 'Category not found' });
-        await category.destroy();
-        res.json({ message: 'Category deleted' });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
+    await category.destroy();
+    res.json({ message: 'Category deleted' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
-
