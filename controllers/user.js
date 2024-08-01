@@ -1,4 +1,4 @@
-import User from './models/user.js';
+import User from '../models/user.js';
 import { returnErrorWithMessage } from '../middleware/returnErrorWithMessage.js';
 
 export const createUser = async (req, res) => {

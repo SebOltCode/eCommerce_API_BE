@@ -1,9 +1,9 @@
-import {Router} from 'express';
+import { Router } from 'express';
 import {
     createCategory,
     deleteCategory,
     getCategoryById,
-    getCategory,
+    // getCategory,
     updateCategory,
 } from '../controllers/category.js';
 
