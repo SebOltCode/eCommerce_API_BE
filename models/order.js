@@ -36,7 +36,7 @@ Order.belongsToMany(Product, {
 (async () => {
   try {
     // Synchronisiere nur die Order-Tabelle. `sequelize.sync()` wird normalerweise global verwendet.
-    await Order.sync(); 
+    await Order.sync();
     console.log('Order table synchronized');
   } catch (error) {
     console.error('Error synchronizing the Order table:', error);
