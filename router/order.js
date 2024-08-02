@@ -1,3 +1,4 @@
+
 import { Router } from 'express';
 import { createValidator } from 'express-joi-validation';
 const validator = createValidator(); // Hier wird der Validator erstellt
@@ -12,11 +13,9 @@ import {
 
 const orderRoutes = Router();
 
-orderRoutes.get('/', getOrder);
-orderRoutes.post('/', validator.body(orderSchema), createOrder);
 
-orderRoutes.get('/:id', getOrderById);
-orderRoutes.put('/:id', validator.body(orderSchema), updateOrder);
-orderRoutes.delete('/:id', deleteOrder);
+orderRoutes.route('/').get(getOrder).post(validator.body(orderSchema),createOrder);
+orderRoutes.route('/:id').get(getOrderById).put(validator.body(orderSchema),updateOrder).delete(deleteOrder);
+
 
 export default orderRoutes;
